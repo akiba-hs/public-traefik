@@ -1,0 +1,11 @@
+services:
+  reverse-proxy:
+    image: ghcr.io/akiba-hs/auth-service:latest
+    network_mode: "host"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - data:/data
+    restart: always
+
+volumes:
+  data:

@@ -1,0 +1,22 @@
+http:
+  routers:
+    mintlify-root:
+      rule: Host(`akiba.space`)
+      entryPoints: [websecure]
+      service: mintlify-app
+      middlewares: [mintlify-headers-app]
+      tls:
+        certResolver: le
+
+  middlewares:
+    mintlify-headers-app:
+      headers:
+        customRequestHeaders:
+          Origin: akibahackspace.mintlify.app
+
+  services:
+    mintlify-app:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: https://akibahackspace.mintlify.app
