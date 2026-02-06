@@ -5,8 +5,6 @@ http:
       entryPoints: [websecure]
       service: mintlify-app
       middlewares: [mintlify-headers-app]
-      tls:
-        certResolver: le
 
   middlewares:
     mintlify-headers-app:
@@ -20,3 +18,4 @@ http:
         passHostHeader: false
         servers:
           - url: https://akibahackspace.mintlify.app
+
