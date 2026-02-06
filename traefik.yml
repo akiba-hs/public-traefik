@@ -21,4 +21,5 @@ certificatesresolvers:
     acme:
       email: d3fl4t3@gmail.com
       storage: /data/acme.json
-      tlsChallenge: {}
+      dnsChallenge:
+        provider: cloudflare
