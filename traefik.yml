@@ -1,0 +1,22 @@
+providers:
+  docker:
+    exposedByDefault: false
+    defaultRule: "Host(`{{ trimPrefix `/` .Name }}.internal`)"
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        certResolver: myresolver
+        domains:
+         - main: akiba.space
+           sans:
+            - "*.akiba.space"
+certificatesresolvers:
+  myresolver:
+    acme:
+      email: d3fl4t3@gmail.com
+      storage: /data/acme.json
+      tlsChallenge: {}
