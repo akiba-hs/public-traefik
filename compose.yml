@@ -7,7 +7,7 @@ services:
       - data:/data
     restart: always
     environment:
-      - CLOUDFLARE_DNS_API_TOKEN:$CF_DNS_API_TOKEN
+      - CLOUDFLARE_DNS_API_TOKEN=$CF_DNS_API_TOKEN
 
 volumes:
   data:
