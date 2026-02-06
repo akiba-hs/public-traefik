@@ -1,6 +1,6 @@
 services:
   reverse-proxy:
-    image: ghcr.io/akiba-hs/auth-service:latest
+    image: ghcr.io/akiba-hs/public-traefik:latest
     network_mode: "host"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -8,4 +8,5 @@ services:
     restart: always
 
 volumes:
+
   data:
