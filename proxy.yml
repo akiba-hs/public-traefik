@@ -4,13 +4,18 @@ http:
       rule: Host(`akiba.space`)
       entryPoints: [websecure]
       service: mintlify-app
-      middlewares: [mintlify-headers-app]
+      middlewares: [chat-redirect, mintlify-headers-app]
 
   middlewares:
     mintlify-headers-app:
       headers:
         customRequestHeaders:
           Origin: akibahackspace.mintlify.app
+    chat-redirect:
+      redirectRegex:
+        regex: ^https?://akiba\.space/chat$
+        replacement: https://t.me/+e949BIUkRV8xODZi
+        permanent: false
 
   services:
     mintlify-app:
@@ -18,4 +23,5 @@ http:
         passHostHeader: false
         servers:
           - url: https://akibahackspace.mintlify.app
+
 
