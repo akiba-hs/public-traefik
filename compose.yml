@@ -8,6 +8,8 @@ services:
     restart: always
     environment:
       - CLOUDFLARE_DNS_API_TOKEN=$CF_DNS_API_TOKEN
+      - TG_PUBLIC_PREFIX=${TG_PUBLIC_PREFIX:?public prefix required}
+      - TG_BOT_TOKEN=${TG_BOT_TOKEN:?bot token required}
 
 volumes:
   data:
