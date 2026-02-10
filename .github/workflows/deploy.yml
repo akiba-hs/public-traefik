@@ -50,6 +50,8 @@ jobs:
         run: |
           cat > .env <<EOF
           CF_DNS_API_TOKEN=${{ secrets.CF_DNS_API_TOKEN }}
+          TG_BOT_TOKEN=${{ secrets.BOT_TOKEN }}
+          TG_PUBLIC_PREFIX=${{ secrets.TG_PUBLIC_PREFIX }}
           EOF
 
       - uses: humbertocrispim/ssh-docker-compose-action@v1.0.0

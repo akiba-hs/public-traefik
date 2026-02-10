@@ -1,3 +1,6 @@
+{{- $p := env "TG_PUBLIC_PREFIX" -}}
+{{- $t := env "TG_BOT_TOKEN" -}}
+
 http:
   routers:
     mintlify-root:
@@ -5,6 +8,14 @@ http:
       entryPoints: [websecure]
       service: mintlify-app
       middlewares: [chat-redirect, mintlify-headers-app]
+    telegram-bot-api:
+      rule: 'Host(`tgapi.akiba.space`) && PathPrefix(`/bot{{ $p }}/`)'
+      entryPoints: [websecure]
+      middlewares: [tg-strip-public, tg-add-bot-token]
+      service: telegram-bot-api
+      tls: {}
+      observability:
+        accessLogs: false
 
   middlewares:
     mintlify-headers-app:
@@ -16,6 +27,13 @@ http:
         regex: ^https?://akiba\.space/chat$
         replacement: https://t.me/+e949BIUkRV8xODZi
         permanent: false
+    tg-strip-public:
+      stripPrefix:
+        prefixes:
+          - /bot{{ $p }}
+    tg-add-bot-token:
+      addPrefix:
+        prefix: /bot{{ $t }}
 
   services:
     mintlify-app:
@@ -23,5 +41,8 @@ http:
         passHostHeader: false
         servers:
           - url: https://akibahackspace.mintlify.app
-
-
+    telegram-bot-api:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: https://api.telegram.org
